@@ -29,23 +29,22 @@ def fftpower(samplerate, sig):
 
 
 fname="200401.152"
-
+target_channel=0
 with open(fname,"rb") as f:
     RawData=f.read()
     Data,sampling_rate,strtemp=dataDecode.rawdataDecode(RawData)
 
-windowsize=int(30*sampling_rate[0])
+windowsize=int(30*sampling_rate[target_channel])
 amp_total=[]
-for i in range(len(Data[0])//windowsize):
-    f_len,amp=fftpower(sampling_rate[0],Data[0][i*windowsize:(i+1)*windowsize])
+for i in range(len(Data[target_channel])//windowsize):
+    f_len,amp=fftpower(sampling_rate[target_channel],Data[target_channel][i*windowsize:(i+1)*windowsize])
     amp_total.append(amp)
 
 
 amp_total=np.array(amp_total).T
-x=np.linspace(0,len(Data[0])//windowsize*30,len(Data[0])//windowsize)
+x=np.linspace(0,len(Data[target_channel])//windowsize*30,len(Data[target_channel])//windowsize)
 
 plt.pcolormesh(x,f_len,amp_total)
-plt.ylim([f_len[0],1])
+plt.set_cmap('gray')
+plt.ylim([f_len[target_channel],1])
 plt.colorbar()
-#plt.imshow(amp_total, aspect='auto', interpolation='none',
-#           origin='lower')
