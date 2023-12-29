@@ -23,7 +23,7 @@ def get_data_complement(signal):
 
 fname='Data/20711.RAW'
 Raw_Data=open(fname, "rb").read()
-Data,sampling_rate,timestr=dataDecode.dataDecode.rawdataDecode(Raw_Data)
+Data,sampling_rate,timestr=dataDecode.DataDecode.rawdata_decode(Raw_Data)
 
 data_duration=len(Data[0])/sampling_rate[0]
 
